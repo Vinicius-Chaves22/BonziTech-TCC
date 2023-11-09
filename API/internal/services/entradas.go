@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -97,13 +96,10 @@ func AdicionarEntrada(c *gin.Context) {
 		return
 	}
 
-	if entd.CodFab.IsZero() || entd.ValorTotal != 0 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Dados insuficientes para registro de entrada."})
+	valido, erroEntd := entd.EValida()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroEntd})
 		return
-	}
-
-	if entd.DataVenda == "" {
-		entd.DataVenda = time.Now().Format("2006-01-02")
 	}
 
 	if !fabricanteExiste(int(entd.CodFab.Int64)) {
@@ -152,9 +148,9 @@ func AdicionarComponentesEntrada(c *gin.Context) {
 			return
 		}
 
-		if comp.CodComp == 0 || comp.CodEntd == 0 || comp.Quantidade <= 0 ||
-			comp.ValorUnit <= 0 {
-			c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Componente(s) inválido(s)."})
+		valido, erroComp := comp.EValido()
+		if !valido {
+			c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroComp})
 			return
 		}
 
@@ -196,13 +192,10 @@ func AtualizarEntrada(c *gin.Context) {
 		return
 	}
 
-	if entd.CodEntd == 0 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Dados insuficientes para registro de entrada."})
+	valido, erroEntd := entd.EValida()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroEntd})
 		return
-	}
-
-	if entd.DataVenda == "" {
-		entd.DataVenda = time.Now().Format("2006-01-02")
 	}
 
 	if !entradaExiste(strconv.Itoa(entd.CodEntd)) {
@@ -238,9 +231,9 @@ func AtualizarComponenteEntrada(c *gin.Context) {
 		return
 	}
 
-	if compEntd.CodCompEntd == 0 || compEntd.CodComp == 0 ||
-		compEntd.Quantidade <= 0 || compEntd.ValorUnit <= 0 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Componente inválido."})
+	compEValido, erroCompEntd := compEntd.EValido()
+	if !compEValido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroCompEntd})
 		return
 	}
 

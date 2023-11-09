@@ -58,8 +58,9 @@ func CriarOrdemServico(c *gin.Context) {
 		return
 	}
 
-	if os.DataEmissao == "" || os.CodCli == 0 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Dados de ordem de serviço insuficientes."})
+	valido, erroOS := os.EValida()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroOS})
 		return
 	}
 
@@ -92,8 +93,9 @@ func AtualizarOrdemServico(c *gin.Context) {
 		return
 	}
 
-	if os.CodOS == 0 || os.DataEmissao == "" || os.CodCli == 0 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Dados de ordem de serviço insuficientes."})
+	valido, erroOS := os.EValida()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroOS})
 		return
 	}
 

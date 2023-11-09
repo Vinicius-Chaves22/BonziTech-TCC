@@ -108,19 +108,9 @@ func AdicionarUsuario(c *gin.Context) {
 		return
 	}
 
-	if len(novoUsuario.Senha) < 8 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Senha precisa de pelo menos 8 caracteres."})
-		return
-	}
-	if novoUsuario.Permissoes == "" {
-		novoUsuario.Permissoes = "Leitura"
-	}
-	if novoUsuario.Nome == "" {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Nome de usuário não pode estar vazio."})
-		return
-	}
-	if novoUsuario.Email == "" {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Email inválido."})
+	valido, erroUsu := novoUsuario.EValido()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroUsu})
 		return
 	}
 
@@ -146,8 +136,9 @@ func AtualizarUsuario(c *gin.Context) {
 		return
 	}
 
-	if u.CodUsuario == 0 || u.Permissoes == "" || u.Nome == "" || u.Email == "" || u.Senha == "" {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Parâmetros insuficientes."})
+	valido, erroUsu := u.EValido()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroUsu})
 		return
 	}
 

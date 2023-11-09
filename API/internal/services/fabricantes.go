@@ -77,8 +77,9 @@ func AdicionarFabricante(c *gin.Context) {
 		return
 	}
 
-	if fab.Nome == "" {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Nome de fabricante não pode estar vazio."})
+	valido, erroFab := fab.EValido()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroFab})
 		return
 	}
 
@@ -104,8 +105,9 @@ func AtualizarFabricante(c *gin.Context) {
 		return
 	}
 
-	if fab.CodFab == 0 || fab.Nome == "" {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Nome e código de fabricante são obrigatórios."})
+	valido, erroFab := fab.EValido()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroFab})
 		return
 	}
 

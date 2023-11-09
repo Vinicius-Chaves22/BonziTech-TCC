@@ -24,6 +24,8 @@ func ValidacaoRequest(c *gin.Context) {
 		return
 	}
 
+	// TODO: validar se há sysKey na request
+
 	// TODO: validar se request contém chave do Client (Node.js)
 
 	codSessaoStr := c.Request.Header["Codsessao"]

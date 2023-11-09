@@ -83,9 +83,9 @@ func AdicionarComponente(c *gin.Context) {
 		return
 	}
 
-	if cmp.CodPeca == "" || cmp.Especificacao == "" || cmp.CodCat == 0 ||
-		cmp.ValorEntrada == 0 || cmp.ValorSaida == 0 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Parâmetros insuficientes."})
+	valido, erroComp := cmp.EValido()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroComp})
 		return
 	}
 
@@ -115,8 +115,9 @@ func AtualizarComponente(c *gin.Context) {
 		return
 	}
 
-	if cmp.CodComp == 0 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Código de componente deve ser informado para atualização de componente."})
+	valido, erroComp := cmp.EValido()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroComp})
 		return
 	}
 

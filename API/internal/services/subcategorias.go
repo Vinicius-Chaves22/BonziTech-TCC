@@ -112,8 +112,9 @@ func CriarSubcategoria(c *gin.Context) {
 		return
 	}
 
-	if subcat.CodCat == 0 || subcat.Nome == "" {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Dados para criação de subcategoria insuficientes."})
+	valido, erroSubcat := subcat.EValida()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroSubcat})
 		return
 	}
 
@@ -137,8 +138,9 @@ func AtualizarSubcategoria(c *gin.Context) {
 		return
 	}
 
-	if subcat.CodSubcat == 0 || subcat.CodCat == 0 || subcat.Nome == "" {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Dados para atualização de subcategoria insuficientes."})
+	valido, erroSubcat := subcat.EValida()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroSubcat})
 		return
 	}
 

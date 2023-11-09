@@ -56,15 +56,9 @@ func AdicionarComponenteEstoque(c *gin.Context) {
 		return
 	}
 
-	if e.QuantMax == 0 {
-		e.QuantMax = 10000000
-	}
-	if e.QuantMin > e.QuantMax {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "A quantidade mínima deve ser maior ou igual à máxima."})
-		return
-	}
-	if e.QuantAtual < 0 || e.QuantMax < 0 || e.QuantMin < 0 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Nenhuma quantidade pode ser inferior a 0."})
+	valido, erroEstq := e.EValido()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroEstq})
 		return
 	}
 
@@ -90,8 +84,9 @@ func AtualizarEstoque(c *gin.Context) {
 		return
 	}
 
-	if e.QuantMax <= 0 || e.QuantMin < 0 || e.QuantAtual < 0 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "A quantidade máxima deve ser superior a 0. E nenhuma quantidade pode ser inferior a 0."})
+	valido, erroEstq := e.EValido()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroEstq})
 		return
 	}
 

@@ -89,9 +89,9 @@ func CriarCliente(c *gin.Context) {
 		return
 	}
 
-	if cli.NomeEmpresa == "" || cli.NomeCli == "" || cli.Cidade == "" ||
-		cli.Estado == "" {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Dados insuficientes."})
+	valido, erroCli := cli.EValido()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroCli})
 		return
 	}
 
@@ -119,9 +119,9 @@ func AtualizarCliente(c *gin.Context) {
 		return
 	}
 
-	if cli.CodCli == 0 || cli.NomeEmpresa == "" || cli.NomeCli == "" ||
-		cli.Cidade == "" || cli.Estado == "" {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Dados insuficientes."})
+	valido, erroCli := cli.EValido()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroCli})
 		return
 	}
 
@@ -183,8 +183,9 @@ func CadastrarTelefone(c *gin.Context) {
 		VALUES (?, ?, ?, ?, ?);`
 
 	for _, tel := range telefones {
-		if tel.CodCli == 0 || len(tel.Telefone) < 8 || tel.NomeTel == "" {
-			c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Dados de telefone inválidos."})
+		valido, erroTel := tel.EValido()
+		if !valido {
+			c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroTel})
 			return
 		}
 
@@ -213,9 +214,9 @@ func AtualizarTelefone(c *gin.Context) {
 		return
 	}
 
-	if tel.CodTel == 0 || tel.CodCli == 0 || len(tel.Telefone) < 8 ||
-		tel.NomeTel == "" {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Dados de telefone inválidos."})
+	valido, erroTel := tel.EValido()
+	if !valido {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroTel})
 		return
 	}
 

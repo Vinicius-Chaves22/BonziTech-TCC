@@ -103,17 +103,9 @@ func CriarCategoria(c *gin.Context) {
 		return
 	}
 
-	if cat.NomeCat == "" || cat.UnidMedida == "" || cat.Apelido == "" {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Todos os dados da categoria devem ser preenchidos para sua criação."})
-		return
-	}
-
-	if len(cat.UnidMedida) > 3 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Unidade de medidade deve conter até no máximo 3 caracteres."})
-		return
-	}
-	if len(cat.Apelido) > 4 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Apelido deve conter até no máximo 4 caracteres."})
+	catEValida, erroCat := cat.EValida()
+	if !catEValida {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroCat})
 		return
 	}
 
@@ -137,16 +129,10 @@ func AtualizarCategoria(c *gin.Context) {
 		return
 	}
 
-	if cat.CodCat == 0 || cat.NomeCat == "" || cat.UnidMedida == "" || cat.Apelido == "" {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Todos os dados da categoria devem ser preenchidos para sua edição."})
+	catEValida, erroCat := cat.EValida()
+	if !catEValida {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": erroCat})
 		return
-	}
-
-	if len(cat.UnidMedida) > 3 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Unidade de medidade deve conter até no máximo 3 caracteres."})
-	}
-	if len(cat.Apelido) > 4 {
-		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Apelido deve conter até no máximo 4 caracteres."})
 	}
 
 	row := DB.QueryRow("SELECT nome_cat FROM categorias WHERE cod_cat = ?;", cat.CodCat)
