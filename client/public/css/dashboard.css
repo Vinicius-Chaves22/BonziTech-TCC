@@ -580,6 +580,11 @@ td button{
     border-radius: 50%;
 }
 
+#looker {
+    width: 48vw;
+    height: 36vw;
+    margin-left: 12vw;
+}
 
 /* Display das Tabelas */
 #visao-geral,
@@ -691,4 +696,4 @@ td button{
         display: block;
     }
 
-}   
+}      

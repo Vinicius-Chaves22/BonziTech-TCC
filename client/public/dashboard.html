@@ -15,14 +15,11 @@
 </head>
 
 <body>
-    <aside id="aside" class="aside">
+    <aside>
         <ul>
             <li class="logo">
                 <img src="/img/logo-bonziboard.svg" alt="logo">
-                <img id="mini-logo" src="/img/logo-bonziboard-mini.svg" alt="">
             </li>
-
-            <i onclick="closeMenu()" class="fa-solid fa-xmark fa-2xl"></i>
 
             <li><a class="nav-option" href="/dashboard" id="nav-visao" data-section="visao-geral">
                     <i class="fa-solid fa-house"></i>
@@ -54,7 +51,7 @@
                     <span class="nav-item">Estoque</span>
                 </a></li>
             
-            <li><a class="nav-option" href="/dashboard?tabela=ordemServico" id="nav-ordem-servico">
+            <li><a class="nav-option" href="/dashboard?tabela=ordem-servico" id="nav-ordem-servico">
                     <i class="fa-solid fa-list-check"></i>
                     <span class="nav-item">Ordem de Serviço</span>
                 </a></li>
@@ -76,7 +73,6 @@
     <main>
 
         <div class="top">
-            <ion-icon onclick="toggleMenu()" class="menu-bar" name="menu"></ion-icon>
             <h1 id="titulo-tabela">Visão Geral</h1>
             <div class="right">
                 <div class="input-container">
@@ -98,41 +94,7 @@
 
         <!-- Visão geral -->
         <section id="visao-geral" class="hero">
-            <div class="hero-content">
-                <div class="squares">
-                    <div class="square" id="stock-notice">
-                        <h3>ITENS FALTANDO NO ESTOQUE</h3>
-                        <li>Mangueira</li>
-                        <li>Adaptador</li>
-                        <li>Proteção</li>
-                    </div>
-
-                    <div class="square">
-                        <h3>CLIENTES</h3>
-                        <h1>00</h1>
-                    </div>
-
-                    <div class="square">
-                        <h3>FABRICANTES</h3>
-                        <h1>00</h1>
-                    </div>
-
-                    <div class="square">
-                        <h3>COMPONENTES</h3>
-                        <h1>00</h1>
-                    </div>
-
-                    <div class="square">
-                        <h3>ENTRADAS</h3>
-                        <h1>00</h1>
-                    </div>
-
-                    <div class="square">
-                        <h3>SAÍDAS</h3>
-                        <h1>00</h1>
-                    </div>
-                </div>
-            </div>
+            <iframe id="looker" src="https://lookerstudio.google.com/embed/reporting/bb918e49-5fdc-452d-a918-c47dff084404/page/pFHgD" frameborder="0" style="border:0" allowfullscreen></iframe> 
         </section>
 
         <!-- Funcionários -->
@@ -430,155 +392,166 @@
 
         <!-- Componentes -->
         <section id="componentes" class="hero">
-
             <div class="table-area">
                 <table id="tabela-componentes">
                     <thead>
                         <tr>
-                            <th>Componente</th>
-                            <th>Diâmetro Interno</th>
-                            <th>Diâmetro Externo</th>
-                            <th>Diâmetro Nominal</th>
-                            <th>Medida</th>
-                            <th>Costura</th>
-                            <th>Prensado Reusável</th>
-                            <th>Mangueira</th>
+                            <th>Cod. Peça</th>
+                            <th>Especificação</th>
+							<th>Categoria</th>
+							<th>Sub Cat.</th>
                             <th>Material</th>
-                            <th>Norma</th>
-                            <th>Bitola</th>
-                            <th>Quantidade Mínima</th>
-                            <th>Quantidade Máxima</th>
-                            <th>Estoque</th>
                             <th>Valor de Entrada</th>
-                            <th>Valor de Sáida</th>
+                            <th>Valor de Venda</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody-componentes">
 
                     </tbody>
                 </table>
 
-                <div class="add-form" id="add-form-componentes" style="display: none;">
-                    <h1>Adicionar Componente</h1>
+                <div id="add-componentes-form" class="add-form">
+                    <div class="add-form-title">
+                        <h1>Adicionar Componente</h1>
+                        <span id="cancel-componente-post-icon"><i class="fa-solid fa-xmark fa-fw"></i></span>
+                    </div>
+                    
+                    <form id="add-formulario-componente">
+                        <label>C&oacute;digo da Peça</label>
+                        <input type="text" id="add-codpeca-componentes" maxlength="10">
 
-                    <form>
-                        <label>Componente</label>
-                        <input type="text" id="add-componente-componentes">
+                        <label>Especificac&ccedil;&atilde;o</label>
+                        <input type="text" id="add-especificacao-componentes" maxlength="30">
+
+                        <label>Categoria</label>
+                        <!--<input type="text" id="add-categoria-componentes" maxlength="100">-->
+						<select id="add-categoria-componentes">
+                            <option value="null" selected>Selecionar Categoria</option>
+                        </select>
+
+                        <label>Sub-Categoria</label>
+                        <!--<input type="text" id="add-subcategoria-componentes" maxlength="100">-->
+						<select id="add-subcategoria-componentes">
+                            <option value="null" selected>Selecionar Sub-Categoria</option>
+                        </select>
 
                         <label>Diâmetro Interno</label>
-                        <input type="text" id="add-dia-interno-componentes">
+                        <input type="text" id="add-dia-interno-componentes" maxlength="10">
 
                         <label>Diâmetro Externo</label>
-                        <input type="text" id="add-dia-externo-componentes">
+                        <input type="number" id="add-dia-externo-componentes" maxlength="3" min="0" max="999"/>
 
                         <label>Diâmetro Nominal</label>
-                        <input type="text" id="add-dia-nominal-componentes">
+                        <!--<input type="number" step="1" pattern="\d+" id="add-dia-nominal-componentes" maxlength="6">-->
+                        <input type="text" id="add-dia-nominal-componentes" maxlength="6">
 
                         <label>Medida</label>
-                        <input type="text" id="add-medida-componentes">
+                        <input type="number" id="add-medida-componentes" maxlength="6" min="0" max="999999"/>
 
                         <label>Costura</label>
-                        <input type="text" id="add-costura-componentes">
+                        <select id="add-costura-componentes">
+                            <option value="true" selected>Sim</option>
+                            <option value="false">Não</option>
+                        </select>
 
                         <label>Prensado Reusável</label>
-                        <input type="text" id="add-pren-reusavel-componentes">
+                        <input type="text" id="add-pren-reusavel-componentes" maxlength="1">
 
                         <label>Mangueira</label>
-                        <input type="text" id="add-mangueira-componentes">
+                        <input type="text" id="add-mangueira-componentes" maxlength="30">
 
                         <label>Material</label>
-                        <input type="text" id="add-material-componentes">
+                        <input type="text" id="add-material-componentes" maxlength="20">
 
                         <label>Norma</label>
-                        <input type="text" id="add-norma-componentes">
+                        <input type="text" id="add-norma-componentes" maxlength="20">
 
                         <label>Bitola</label>
-                        <input type="text" id="add-bitola-componentes">
-
-                        <label>Quantidade Mínima</label>
-                        <input type="number" id="add-quantidade-min-componentes">
-
-                        <label>Quantidade Máxima</label>
-                        <input type="text" id="add-quantidade-max-componentes-estoque">
-
-                        <label>Estoque</label>
-                        <input type="text" id="add-estoque-componentes">
+                        <input type="number" id="add-bitola-componentes" maxlength="10" min="0" max="9999999999"/>
 
                         <label>Valor de Entrada</label>
-                        <input type="text" id="add-valor-entrada-componentes">
+                        <input id="add-valor-entrada-componentes" type="text" placeholder="0,00" required min="0" value="0,00" />
 
                         <label>Valor de Saída</label>
-                        <input type="text" id="add-valor-saida-componentes">
+                        <input id="add-valor-saida-componentes" type="text" placeholder="0,00" required min="0" value="0,00"/>
 
                         <div class="form-btns">
-                            <button id="confirm-btn-componentes">Atualizar</button>
-                            <button id="cancel-btn-componentes">Cancelar</button>
+                            <button class="confirm-btn" id="confirm-criacao-componente-btn">Adicionar</button>
+                            <button class="cancel-btn" id="cancel-criacao-componente-btn">Cancelar</button>
                         </div>
                     </form>
-
                 </div>
 
-                <div class="edit-form" id="edit-form-componentes">
-                    <h1>Editar Componente</h1>
+                <div id="edit-componentes-form" class="edit-form">
+                    <div class="add-form-title">
+                        <h1>Editar Componente</h1>
+                        <span><i id="cancel-componente-edit-icon" class="fa-solid fa-xmark fa-fw"></i></span>
+                    </div>
 
-                    <form>
-                        <label>Componente</label>
-                        <input type="text" id="edit-componente-componentes">
+                    <form id="edit-formulario-componente">
+                        <label>C&oacute;digo da Peça</label>
+                        <input type="text" id="edit-codpeca-componentes" maxlength="10">
+
+                        <label>Especificac&ccedil;&atilde;o</label>
+                        <input type="text" id="edit-especificacao-componentes" maxlength="30">
+
+                        <label>Categoria</label>
+						<select id="edit-categoria-componentes">
+                            <option value="null" selected>Selecionar Categoria</option>
+                        </select>
+
+                        <label>Sub-Categoria</label>
+						<select id="edit-subcategoria-componentes">
+                            <option value="null" selected>Selecionar Sub-Categoria</option>
+                        </select>
 
                         <label>Diâmetro Interno</label>
-                        <input type="text" id="edit-dia-interno-componentes">
+                        <input type="text" id="edit-dia-interno-componentes" maxlength="10">
 
                         <label>Diâmetro Externo</label>
-                        <input type="text" id="edit-dia-externo-componentes">
+                        <input type="number" id="edit-dia-externo-componentes" maxlength="3" min="0" max="999"/>
 
                         <label>Diâmetro Nominal</label>
-                        <input type="text" id="edit-dia-nominal-componentes">
+                        <input type="text" id="edit-dia-nominal-componentes" maxlength="6">
 
                         <label>Medida</label>
-                        <input type="text" id="edit-medida-componentes">
+                        <input type="number" id="edit-medida-componentes" maxlength="6" min="0" max="999999"/>
 
                         <label>Costura</label>
-                        <input type="text" id="edit-costura-componentes">
+                        <select id="edit-costura-componentes">
+                            <option value="true" selected>Sim</option>
+                            <option value="false">Não</option>
+                        </select>
 
                         <label>Prensado Reusável</label>
-                        <input type="text" id="edit-pren-reusavel-componentes">
+                        <input type="text" id="edit-pren-reusavel-componentes" maxlength="1">
 
                         <label>Mangueira</label>
-                        <input type="text" id="edit-mangueira-componentes">
+                        <input type="text" id="edit-mangueira-componentes" maxlength="30">
 
                         <label>Material</label>
-                        <input type="text" id="edit-material-componentes">
+                        <input type="text" id="edit-material-componentes" maxlength="20">
 
                         <label>Norma</label>
-                        <input type="text" id="edit-norma-componentes">
+                        <input type="text" id="edit-norma-componentes" maxlength="20">
 
                         <label>Bitola</label>
-                        <input type="text" id="edit-bitola-componentes">
-
-                        <label>Quantidade Mínima</label>
-                        <input type="number" id="edit-quantidade-min-componentes">
-
-                        <label>Quantidade Máxima</label>
-                        <input type="text" id="edit-quantidade-max-componentes">
-
-                        <label>Estoque</label>
-                        <input type="text" id="edit-estoque-componentes">
+                        <input type="number" id="edit-bitola-componentes" maxlength="10" min="0" max="9999999999"/>
 
                         <label>Valor de Entrada</label>
-                        <input type="text" id="edit-valor-entrada-componentes">
+                        <input id="edit-valor-entrada-componentes" type="text" placeholder="0,00" required min="0" value="0,00" />
 
                         <label>Valor de Saída</label>
-                        <input type="text" id="edit-valor-saida-componentes">
-
+                        <input id="edit-valor-saida-componentes" type="text" placeholder="0,00" required min="0" value="0,00"/>
 
                         <div class="form-btns">
-                            <button id="update-btn-componentes">Atualizar</button>
-                            <button id="cancel-btn-edit-componentes">Cancelar</button>
+                            <button class="confirm-btn" id="update-componente-btn">Salvar</button>
+                            <button class="cancel-btn" id="edit-componente-cancel-btn">Cancelar</button>
                         </div>
                     </form>
                 </div>
             </div>
-
             <button class="add-table-row" id="add-table-row-componentes"><i class="fa-solid fa-plus fa-2x"></i></button>
         </section>
 
@@ -596,7 +569,7 @@
                             <th>Quantidade</th>
                         </tr>
                     </thead>
-                    <tbody id="tbody-estoque">
+                    <tbody>
 
                     </tbody>
                 </table>
@@ -605,17 +578,20 @@
                     <h1>Adicionar Item</h1>
 
                     <form>
-                        <label>Código do Componente</label>
-                        <input type="text" id="add-codigo-componentes-estoque" type="number">
+                        <label>Código do Estoque</label>
+                        <input type="text" id="add-codigo-estoque-estoque">
+
+                        <label>Código do Componentes</label>
+                        <input type="text" id="add-codigo-componentes-estoque">
 
                         <label>Quantidade Mínima</label>
-                        <input type="text" id="add-quantidade-min-estoque" type="number">
+                        <input type="text" id="add-quantidade-min-estoque">
 
                         <label>Quantidade Máxima</label>
-                        <input type="text" id="add-quantidade-max-estoque" type="number">
+                        <input type="text" id="add-quantidade-max-estoque">
 
                         <label>Quantidade</label>
-                        <input type="text" id="add-quantidade-estoque" type="number">
+                        <input type="text" id="add-quantidade-estoque">
 
                         <div class="form-btns">
                             <button id="confirm-btn-estoque">Adicionar</button>
@@ -629,19 +605,19 @@
 
                     <form>
                         <label>Código do Estoque</label>
-                        <input type="text" id="edit-codigo-estoque-estoque" type="number">
+                        <input type="text" id="edit-codigo-estoque-estoque">
 
-                        <label>Código do Componente</label>
-                        <input type="text" id="edit-codigo-componentes-estoque" type="number">
+                        <label>Código do Componentes</label>
+                        <input type="text" id="edit-codigo-componentes-estoque">
 
                         <label>Quantidade Mínima</label>
-                        <input type="text" id="edit-quantidade-min-estoque" type="number">
+                        <input type="text" id="edit-quantidade-min-estoque">
 
                         <label>Quantidade Máxima</label>
-                        <input type="text" id="edit-quantidade-max-estoque" type="number">
+                        <input type="text" id="edit-quantidade-max-estoque">
 
                         <label>Quantidade</label>
-                        <input type="text" id="edit-quantidade-estoque" type="number">
+                        <input type="text" id="edit-quantidade-estoque">
 
 
                         <div class="form-btns">
@@ -823,7 +799,8 @@
             <button class="add-table-row" id="add-table-row-saidas"><i class="fa-solid fa-plus fa-2x"></i></button>
         </section>
 
-        <section id="ordemServico" class="hero">
+        <!-- Saídas -->
+        <section id="ordem-servico" class="hero">
             <div class="table-area">
                 <table id="tabela-ordem-servico">
                     <thead>
