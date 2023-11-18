@@ -134,9 +134,10 @@ func CriarRouter() *gin.Engine {
 		venda.GET("/", services.MostrarTodasVendas)
 		venda.GET("/:codVenda", services.MostrarVenda)
 		venda.POST("/", services.AdicionarVenda)
+		venda.POST("/componentes", services.AdicionarComponentesVenda)
 		venda.PUT("/", services.AtualizarVenda)
-		venda.PUT("/componentes/codCompVenda", services.AtualizarComponenteVenda)
-		venda.DELETE("/", services.DeletarVenda)
+		venda.PUT("/componentes", services.AtualizarComponenteVenda)
+		venda.DELETE("/:codVenda", services.DeletarVenda)
 	}
 
 	r.GET("/api/ping", pong)

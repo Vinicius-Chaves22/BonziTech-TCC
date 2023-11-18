@@ -109,11 +109,11 @@ func AdicionarEntrada(c *gin.Context) {
 	}
 
 	insert := `
-		INSERT INTO entradas (cod_fab, data_venda, nota_fiscal, valor_total)
-		VALUES(?, ?, ?, ?);`
+		INSERT INTO entradas (cod_fab, data_venda, valor_total, nota_fiscal)
+		VALUES(?, ?, 0, ?);`
 
 	_, err := DB.Exec(insert, entd.CodFab, entd.DataVenda,
-		entd.NotaFiscal, entd.ValorTotal)
+		entd.NotaFiscal)
 	if err != nil {
 		log.Println(err)
 		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": "Erro ao cadastrar entrada."})

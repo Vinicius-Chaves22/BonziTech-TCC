@@ -37,7 +37,7 @@ func (v Venda) EValida() (bool, string) {
 		return false, "Código de ordem de serviço inválido."
 	}
 
-	if v.ValorTotal <= 0 || v.ValorTotal > 999999999.99 {
+	if v.ValorTotal < 0 || v.ValorTotal > 999999999.99 {
 		return false, "Valor total de entrada deve ser positivo e menor que 1 bilhão."
 	}
 

@@ -25,7 +25,7 @@ func (c ComponenteSaida) EValido() (bool, string) {
 		return false, "A quantidade de um componente em saída deve ser maior que 0."
 	}
 
-	if c.ValorUnit <= 0 || c.ValorUnit > 9999999.99 {
+	if c.ValorUnit < 0 || c.ValorUnit > 9999999.99 {
 		return false, "Valor de componente deve estar entre 0,01 e 10.000.000 R$."
 	}
 

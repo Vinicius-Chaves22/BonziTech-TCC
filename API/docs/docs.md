@@ -19,6 +19,7 @@ API hospedada em: http://154.56.41.79:3304/
 * [/api/sessao](#apisessao)
 * [/api/subcategorias](#apisubcategorias)
 * [/api/usuarios](#apiusuarios)
+* [/api/vendas](#apivendas)
 
 ## Status Codes
 
@@ -1259,3 +1260,110 @@ DELETE /api/usuarios/${codUsu}
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `codUsu`      | `string` | **Required**. Código do usuário a ser inativado |
+
+
+## /api/vendas
+
+#### Mostrar todas vendas
+
+```http
+GET /api/vendas
+```
+
+Response:
+```javascript
+{
+  "vendas": []object || null
+}
+```
+
+#### Mostrar uma venda
+
+```http
+GET /api/vendas/${codVenda}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `codVenda`      | `string` | **Required**. Código de venda a ser encontrada |
+
+
+Response:
+```javascript
+{
+  "venda": {
+    "codVenda": Number,
+    "dataVenda": string,
+    "codCli": Number || null,
+    "nomeCli": string || null,
+    "codOS": Number,
+    "valorTotal": Number,
+    "descricao": string || null
+  },
+  "componentes": []object || null
+}
+```
+
+#### Registrar nova venda
+
+```http
+POST /api/vendas
+```
+
+Request body:
+```javascript
+{
+  "dataVenda": string,
+  "codCli": Number || null,
+  "codOS": Number,
+  "descricao": string || null
+}
+```
+
+Exemplo:
+```javascript
+{
+  "dataVenda": "2020-01-15",
+  "codCli": 1,
+  "codOS": 2,
+  "descricao": "Venda de 1 km de magueira ao Gustavo web"
+}
+```
+
+#### Atualizar venda
+
+```http
+PUT /api/vendas
+```
+
+Request body:
+```javascript
+{
+  "codVenda": Number,
+  "dataVenda": string,
+  "codCli": Number || null,
+  "codOS": Number,
+  "descricao": string || null
+}
+```
+
+Exemplo:
+```javascript
+{
+  "codVenda": 1
+  "dataVenda": "2020-01-01",
+  "codCli": 1,
+  "codOS": 3,
+  "descricao": "Venda de 2 km de mangueira ao Gustavo web"
+}
+```
+
+#### Excluir venda
+
+```http
+DELETE /api/vendas/${codVendas}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `codVendas`      | `string` | **Required**. Código da venda a ser excluída |

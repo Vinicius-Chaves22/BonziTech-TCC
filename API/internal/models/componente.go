@@ -101,11 +101,11 @@ func (c Componente) EValido() (bool, string) {
 		}
 	}
 
-	if c.ValorEntrada <= 0 || c.ValorEntrada > 999999999.99 {
+	if c.ValorEntrada < 0 || c.ValorEntrada > 999999999.99 {
 		return false, "Valor de entrada deve ser positivo e inferior a 100 milhões."
 	}
 
-	if c.ValorSaida <= 0 || c.ValorSaida > 999999999.99 {
+	if c.ValorSaida < 0 || c.ValorSaida > 999999999.99 {
 		return false, "Valor de saída deve ser positivo e inferior a 100 milhões."
 	}
 

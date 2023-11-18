@@ -32,7 +32,7 @@ func (e Entrada) EValida() (bool, string) {
 		e.DataVenda = time.Now().Format("2006-01-02")
 	}
 
-	if e.ValorTotal <= 0 || e.ValorTotal > 999999999.99 {
+	if e.ValorTotal < 0 || e.ValorTotal > 999999999.99 {
 		return false, "Valor total de entrada deve ser positivo e menor que 1 bilhão."
 	}
 
