@@ -29,7 +29,8 @@
                     <span class="nav-item">Visão Geral</span>
                 </a></li>
 
-            <li><a class="nav-option" href="/dashboard?tabela=funcionarios" id="nav-funcionarios" data-section="funcionarios">
+            <li><a class="nav-option" href="/dashboard?tabela=funcionarios" id="nav-funcionarios"
+                    data-section="funcionarios">
                     <i class="fa-solid fa-user"></i>
                     <span class="nav-item">Funcionários</span>
                 </a></li>
@@ -53,7 +54,7 @@
                     <i class="fa-solid fa-box-archive"></i>
                     <span class="nav-item">Estoque</span>
                 </a></li>
-            
+
             <li><a class="nav-option" href="/dashboard?tabela=ordemServico" id="nav-ordem-servico">
                     <i class="fa-solid fa-list-check"></i>
                     <span class="nav-item">Ordem de Serviço</span>
@@ -98,41 +99,9 @@
 
         <!-- Visão geral -->
         <section id="visao-geral" class="hero">
-            <div class="hero-content">
-                <div class="squares">
-                    <div class="square" id="stock-notice">
-                        <h3>ITENS FALTANDO NO ESTOQUE</h3>
-                        <li>Mangueira</li>
-                        <li>Adaptador</li>
-                        <li>Proteção</li>
-                    </div>
-
-                    <div class="square">
-                        <h3>CLIENTES</h3>
-                        <h1>00</h1>
-                    </div>
-
-                    <div class="square">
-                        <h3>FABRICANTES</h3>
-                        <h1>00</h1>
-                    </div>
-
-                    <div class="square">
-                        <h3>COMPONENTES</h3>
-                        <h1>00</h1>
-                    </div>
-
-                    <div class="square">
-                        <h3>ENTRADAS</h3>
-                        <h1>00</h1>
-                    </div>
-
-                    <div class="square">
-                        <h3>SAÍDAS</h3>
-                        <h1>00</h1>
-                    </div>
-                </div>
-            </div>
+            <iframe id="looker"
+                src="https://lookerstudio.google.com/embed/reporting/bb918e49-5fdc-452d-a918-c47dff084404/page/pFHgD"
+                frameborder="0" style="border:0" allowfullscreen></iframe>
         </section>
 
         <!-- Funcionários -->
@@ -157,7 +126,7 @@
                         <h1>Adicionar Funcionário</h1>
                         <span id="cancel-funcionario-post-icon"><i class="fa-solid fa-xmark fa-fw"></i></span>
                     </div>
-                    
+
                     <form>
                         <label>Permissão</label>
                         <input type="text" id="add-funcionario-permission" required>
@@ -169,7 +138,8 @@
                         <input type="text" id="add-funcionario-email" required>
 
                         <label for="senha">Senha</label>
-                        <input type="password" id="add-funcionario-password" required title="Senha deve ter no mínimo 8 caracteres." pattern=".{8,}">
+                        <input type="password" id="add-funcionario-password" required
+                            title="Senha deve ter no mínimo 8 caracteres." pattern=".{8,}">
                         <p>Senha deve ter no mínimo 8 caracteres.</p>
 
 
@@ -197,7 +167,8 @@
                         <input type="text" id="edit-funcionario-email" required>
 
                         <label for="senha">Confirme sua senha</label>
-                        <input type="password" id="edit-funcionario-password" required title="Senha deve ter no mínimo 8 caracteres." pattern=".{8,}">
+                        <input type="password" id="edit-funcionario-password" required
+                            title="Senha deve ter no mínimo 8 caracteres." pattern=".{8,}">
 
 
                         <div class="form-btns">
@@ -262,7 +233,7 @@
 
                         <label>Cep</label>
                         <input type="text" id="add-cep-clientes">
-                        
+
                         <label>Email</label>
                         <input type="text" id="add-email-clientes">
 
@@ -271,7 +242,7 @@
                             <button id="confirm-btn-clientes">Adicionar</button>
                             <button id="cancel-btn-clientes">Cancelar</button>
                         </div>
-                    </form> 
+                    </form>
                 </div>
 
                 <div class="edit-form" id="edit-form-clientes">
@@ -463,7 +434,7 @@
                         <h1>Adicionar Componente</h1>
                         <span id="cancel-componente-post-icon"><i class="fa-solid fa-xmark fa-fw"></i></span>
                     </div>
-                    
+
                     <form id="add-formulario-componente">
                         <label>C&oacute;digo da Peça</label>
                         <input type="text" id="add-codpeca-componentes" maxlength="10">
@@ -473,13 +444,13 @@
 
                         <label>Categoria</label>
                         <!--<input type="text" id="add-categoria-componentes" maxlength="100">-->
-						<select id="add-categoria-componentes">
+                        <select id="add-categoria-componentes">
                             <option value="null" selected>Selecionar Categoria</option>
                         </select>
-                        
+
                         <label>Sub Categoria</label>
                         <!--<input type="text" id="add-subcategoria-componentes" maxlength="100">-->
-						<select id="add-subcategoria-componentes">
+                        <select id="add-subcategoria-componentes">
                             <option value="null" selected>Selecionar Sub-Categoria</option>
                         </select>
 
@@ -487,14 +458,14 @@
                         <input type="text" id="add-dia-interno-componentes" maxlength="10">
 
                         <label>Diâmetro Externo</label>
-                        <input type="number" id="add-dia-externo-componentes" maxlength="3" min="0" max="999"/>
+                        <input type="number" id="add-dia-externo-componentes" maxlength="3" min="0" max="999" />
 
                         <label>Diâmetro Nominal</label>
                         <!--<input type="number" step="1" pattern="\d+" id="add-dia-nominal-componentes" maxlength="6">-->
                         <input type="text" id="add-dia-nominal-componentes" maxlength="6">
 
                         <label>Medida</label>
-                        <input type="number" id="add-medida-componentes" maxlength="6" min="0" max="999999"/>
+                        <input type="number" id="add-medida-componentes" maxlength="6" min="0" max="999999" />
 
                         <label>Costura</label>
                         <!--<input type="number" step="1" pattern="\d+" id="add-costura-componentes" maxlength="6">-->
@@ -516,13 +487,13 @@
                         <input type="text" id="add-norma-componentes" maxlength="20">
 
                         <label>Bitola</label>
-                        <input type="number" id="add-bitola-componentes" maxlength="10" min="0" max="9999999999"/>
+                        <input type="number" id="add-bitola-componentes" maxlength="10" min="0" max="9999999999" />
 
                         <label>Valor de Entrada</label>
                         <input id="add-valor-entrada-componentes" type="text" placeholder="0,00" min="0" value="0,00" />
 
                         <label>Valor de Saída</label>
-                        <input id="add-valor-saida-componentes" type="text" placeholder="0,00" min="0" value="0,00"/>
+                        <input id="add-valor-saida-componentes" type="text" placeholder="0,00" min="0" value="0,00" />
 
                         <div class="form-btns">
                             <button class="confirm-btn" id="confirm-criacao-componente-btn">Adicionar</button>
@@ -545,12 +516,12 @@
                         <input type="text" id="edit-especificacao-componentes" maxlength="30">
 
                         <label>Categoria</label>
-						<select id="edit-categoria-componentes">
+                        <select id="edit-categoria-componentes">
                             <option value="null" selected>Selecionar Categoria</option>
                         </select>
 
                         <label>Sub-Categoria</label>
-						<select id="edit-subcategoria-componentes">
+                        <select id="edit-subcategoria-componentes">
                             <option value="null" selected>Selecionar Sub-Categoria</option>
                         </select>
 
@@ -558,13 +529,13 @@
                         <input type="text" id="edit-dia-interno-componentes" maxlength="10">
 
                         <label>Diâmetro Externo</label>
-                        <input type="number" id="edit-dia-externo-componentes" maxlength="3" min="0" max="999"/>
+                        <input type="number" id="edit-dia-externo-componentes" maxlength="3" min="0" max="999" />
 
                         <label>Diâmetro Nominal</label>
                         <input type="text" id="edit-dia-nominal-componentes" maxlength="6">
 
                         <label>Medida</label>
-                        <input type="number" id="edit-medida-componentes" maxlength="6" min="0" max="999999"/>
+                        <input type="number" id="edit-medida-componentes" maxlength="6" min="0" max="999999" />
 
                         <label>Costura</label>
                         <select id="edit-costura-componentes">
@@ -585,13 +556,14 @@
                         <input type="text" id="edit-norma-componentes" maxlength="20">
 
                         <label>Bitola</label>
-                        <input type="number" id="edit-bitola-componentes" maxlength="10" min="0" max="9999999999"/>
+                        <input type="number" id="edit-bitola-componentes" maxlength="10" min="0" max="9999999999" />
 
                         <label>Valor de Entrada</label>
-                        <input id="edit-valor-entrada-componentes" type="text" placeholder="0,00" min="0" value="0,00" />
+                        <input id="edit-valor-entrada-componentes" type="text" placeholder="0,00" min="0"
+                            value="0,00" />
 
                         <label>Valor de Saída</label>
-                        <input id="edit-valor-saida-componentes" type="text" placeholder="0,00" min="0" value="0,00"/>
+                        <input id="edit-valor-saida-componentes" type="text" placeholder="0,00" min="0" value="0,00" />
 
                         <div class="form-btns">
                             <button class="confirm-btn" id="update-componente-btn">Salvar</button>
@@ -617,7 +589,7 @@
                             <th>Quantidade</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody-estoque">
 
                     </tbody>
                 </table>
@@ -690,7 +662,7 @@
                             <th>Valor Total</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody-entradas">
 
                     </tbody>
                 </table>
@@ -706,19 +678,19 @@
                         <input type="text" id="add-data-venda-entradas">
 
                         <labell>Quantidade</label>
-                        <input type="text" id="add-quantidade-entradas">
+                            <input type="text" id="add-quantidade-entradas">
 
-                        <labell>Nota Fiscal</label>
-                        <input type="text" id="add-nota-fiscal-entradas">
+                            <labell>Nota Fiscal</label>
+                                <input type="text" id="add-nota-fiscal-entradas">
 
-                        <labell>Valor Total</label>
-                        <input type="text" id="add-valor-total-entradas">
+                                <labell>Valor Total</label>
+                                    <input type="text" id="add-valor-total-entradas">
 
 
-                        <div class="form-btns">
-                            <button id="confirm-btn-entradas">Adicionar</button>
-                            <button id="cancel-btn-entradas">Cancelar</button>
-                        </div>
+                                    <div class="form-btns">
+                                        <button id="confirm-btn-entradas">Adicionar</button>
+                                        <button id="cancel-btn-entradas">Cancelar</button>
+                                    </div>
                     </form>
                 </div>
 
@@ -733,19 +705,19 @@
                         <input type="text" id="edit-data-venda-entradas">
 
                         <labell>Quantidade</label>
-                        <input type="text" id="edit-quantidade-entradas">
+                            <input type="text" id="edit-quantidade-entradas">
 
-                        <labell>Nota Fiscal</label>
-                        <input type="text" id="edit-nota-fiscal-entradas">
+                            <labell>Nota Fiscal</label>
+                                <input type="text" id="edit-nota-fiscal-entradas">
 
-                        <labell>Valor Total</label>
-                        <input type="text" id="edit-valor-total-entradas">
+                                <labell>Valor Total</label>
+                                    <input type="text" id="edit-valor-total-entradas">
 
 
-                        <div class="form-btns">
-                            <button id="update-btn-entradas">Atualizar</button>
-                            <button id="cancel-btn-edit-entradas">Cancelar</button>
-                        </div>
+                                    <div class="form-btns">
+                                        <button id="update-btn-entradas">Atualizar</button>
+                                        <button id="cancel-btn-edit-entradas">Cancelar</button>
+                                    </div>
                     </form>
                 </div>
             </div>
@@ -769,7 +741,7 @@
                             <th>Descrição</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody-saidas">
 
                     </tbody>
                 </table>
@@ -844,7 +816,6 @@
             <button class="add-table-row" id="add-table-row-saidas"><i class="fa-solid fa-plus fa-2x"></i></button>
         </section>
 
-        <!-- Saídas -->
         <section id="ordemServico" class="hero">
             <div class="table-area">
                 <table id="tabela-ordem-servico">
@@ -915,7 +886,8 @@
                 </div>
             </div>
 
-            <button class="add-table-row" id="add-table-row-ordem-servico"><i class="fa-solid fa-plus fa-2x"></i></button>
+            <button class="add-table-row" id="add-table-row-ordem-servico"><i
+                    class="fa-solid fa-plus fa-2x"></i></button>
         </section>
 
         <!-- Mensagem de Erro -->
