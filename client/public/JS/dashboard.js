@@ -114,20 +114,29 @@ function mostrarMensagemErro(erro) {
     setTimeout(() => {
         mensagemErroContainer.style.display = "none";
     }, 5000);
+
 }
 
 /**
- * Abre o menu de tabelas do mobile
+ * Mostra o menu do Hamburguer.
  */
-function toggleMenu() {
+function toggleMenu(){
     const aside = document.getElementById("aside");
-    aside.style.display = aside.style.display === "block" ? "none" : "block";
-  }
+    aside.style.display = "block";
+}
 
 /**
- * Fecha o menu de tabelas do mobile ao clicar no ícone X
+ * Fecha o menu do Hamburguer.
  */
-function closeMenu() {
-    const aside = document.querySelector("aside");
+function closeMenu(){
+    const aside = document.getElementById("aside");
     aside.style.display = "none";
-  }
+
+    //para não dar problema entre o resize da janela e o menu sumir
+    //ajustamos a tela para reexibir o menu correto
+    window.onresize = function(event) {
+        if (event.srcElement.innerWidth > 900){
+            aside.style.display = "flex";
+        }
+    };
+}
