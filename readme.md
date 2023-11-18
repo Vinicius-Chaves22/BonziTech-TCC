@@ -22,8 +22,9 @@ Neste repositório você encontra:
 
 ## Feito por:
 
-* <a href="https://github.com/rafaelnator"> Raffles Giorgi </a> - Documentação
-* <a href="https://github.com/TulioTheGreat"> TulioTheGreat </a> - UI/UX Designer & Dev Front-End
-* <a href="https://github.com/unknowuser6969"> unkaraujo </a> - Tester
-* <a href="https://github.com/vidacalura"> vidacalura </a> - Dev Fullstack
-* <a href="https://github.com/Vinicius-Chaves22"> Vinicius-Chaves22 </a> - Auxiliar de documentação
+* <a href="https://github.com/unknowuser6969"> Arthur Araújo </a> - Dev Front-end
+* <a href="https://github.com/vidacalura"> Lucas Guedes </a> - Dev Fullstack & Documentador
+* <a href="https://github.com/luizinfrd"> Luis Dias </a> - Dev Front-end
+* <a href="https://github.com/TulioTheGreat"> Pedro Borges </a> - UI/UX Designer & Dev Front-End
+* <a href="https://github.com/rafaelnator"> Rafael Giorgi </a> - Dev Front-end & Documentador
+* <a href="https://github.com/Vinicius-Chaves22"> Vinícius Chaves </a> - Auxiliar Front-end
