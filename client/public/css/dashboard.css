@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Mona Sans Regular';
-    src: url(/fonts/MonaSans-Regular.ttf);
+    src: url("/fonts/MonaSans-Regular.ttf");
 }
 
 @font-face {
     font-family: 'Mona Sans Bold';
-    src: url(/fonts/MonaSans-Bold.ttf);
+    src: url("/fonts/MonaSans-Bold.ttf");
 }
 
 
@@ -32,6 +32,12 @@
     --red-800: #991B1B;
     --amber-100: #FEF3C7;
 }
+
+.icon::before {
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
 
 *{
     margin: 0;
@@ -60,6 +66,7 @@ aside{
     top: 0;
     bottom: 0;
     background-color: var(--white-100);
+    user-select: none;
     z-index: 100;
 }
 
@@ -116,6 +123,7 @@ li{
 .fa-xmark{
     display: none;
 }
+
 
 /* ASIDE END */
 
@@ -174,6 +182,7 @@ main{
     border: none;
     border-radius: 0.4rem;
     font-family: 'Mona Sans Regular';
+    transition: all 0.2s ease-in-out;
 }
 
 .top input::placeholder{
@@ -282,11 +291,13 @@ main{
 }
 
 .table-area{
-    padding: 1rem;
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 95%;
+    height: 100%;
+    overflow-y: auto;
+    margin: 1rem;
 }
 
 table {
@@ -322,6 +333,15 @@ table tr{
 
 td button{
     margin: 0 0.4rem;
+}
+
+#listaction{
+    min-width: 8rem !important;
+}
+
+.texto-404 {
+    padding: 10vh 0vh;
+    text-align: center;
 }
 
 .table-icons i{
@@ -395,7 +415,9 @@ td button{
     border-radius: 0px 0px 0px 14px;
     -webkit-border-radius: 0px 0px 0px 14px;
     -moz-border-radius: 0px 0px 0px 14px;
+    animation: transform 0.3s ease-in;
     z-index: 30;
+    overflow-y: auto;
 }
 
 
@@ -415,7 +437,7 @@ td button{
 }
 
 .add-form-title span{
-    border-radius: 50%;
+    border-radius: 10%;
     font-size: 1.5rem;
     padding: 0.5rem;
     cursor: pointer;
@@ -431,7 +453,16 @@ td button{
 }
 
 .add-form input{
-    font-family: 'Mona Sans Regular';
+    font-family: inter;
+    margin-bottom: 1.2rem;
+    padding: 0.6rem;
+    border: 1px solid var(--gray-100);
+    border-radius: 0.2rem;
+    outline: none;
+}
+
+.add-form select{
+    font-family: inter;
     margin-bottom: 1.2rem;
     padding: 0.6rem;
     border: 1px solid var(--gray-100);
@@ -442,7 +473,7 @@ td button{
 .add-form p{
     border-radius: 0.8rem;
     padding: 1rem;
-    background-color: var(--red-100);
+    background-color: var(--white-100);
     color: var(--red-800);
 }
 
@@ -510,14 +541,15 @@ td button{
     -moz-border-radius: 0px 0px 0px 14px;
     animation: transform 0.3s ease-in;
     z-index: 20;
+    overflow-y: auto;
 }
-
 
 .edit-form form{
     padding-top: 4rem;
     width: 80%;
     display: flex;
     flex-direction: column;
+    overflow-y:auto;
 }
 
 .edit-form h1{
@@ -525,7 +557,16 @@ td button{
 }
 
 .edit-form input{
-    font-family: 'Mona Sans Regular';
+    font-family: inter;
+    margin-bottom: 1.2rem;
+    padding: 0.6rem;
+    border: 1px solid var(--gray-100);
+    border-radius: 0.2rem;
+    outline: none;
+}
+
+.edit-form select{
+    font-family: inter;
     margin-bottom: 1.2rem;
     padding: 0.6rem;
     border: 1px solid var(--gray-100);
@@ -555,11 +596,14 @@ td button{
     background-color: var(--red-200);
     color: var(--red-800);
     height: 6rem;
-    width: 30%;
-    right: 10px;
-    bottom: 10px;
+    width: 50%;
+    right: 2rem;
+    bottom: 2rem;
     position: absolute;
+    z-index: 2000000;
 }
+
+
 
 .error-message-content{
     display: flex;
@@ -580,11 +624,6 @@ td button{
     border-radius: 50%;
 }
 
-#looker {
-    width: 48vw;
-    height: 36vw;
-    margin-left: 12vw;
-}
 
 /* Display das Tabelas */
 #visao-geral,
@@ -605,6 +644,7 @@ td button{
     aside{
         width: 10rem;
         padding: 2rem 2rem;
+        height: 100%;
     }
 
     aside ul{
@@ -635,11 +675,11 @@ td button{
     }
 
     .add-form{
-        width: 40vw;
+        width: 50vw;
     }
 
     .edit-form{
-        width: 40vw;
+        width: 50vw;
     }
 
 }
@@ -696,4 +736,4 @@ td button{
         display: block;
     }
 
-}      
+}   

@@ -12,10 +12,13 @@ app.use(session({
         secure: false
     }
 }));
+
 app.use(express.static("./public/"));
 app.use("/", require("./routes/routes"));
 app.use("/clientes", require("./routes/clientesRoutes"));
 app.use("/componentes", require("./routes/componentesRoutes"));
+app.use("/categorias", require("./routes/categoriasRoutes"));
+app.use("/subcategorias", require("./routes/subcategoriasRoutes"));
 app.use("/entradas", require("./routes/entradasRoutes"));
 app.use("/estoque", require("./routes/estoqueRoutes"));
 app.use("/fabricantes", require("./routes/fabricantesRoutes"));
