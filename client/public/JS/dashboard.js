@@ -114,29 +114,36 @@ function mostrarMensagemErro(erro) {
     setTimeout(() => {
         mensagemErroContainer.style.display = "none";
     }, 5000);
-
 }
 
 /**
- * Mostra o menu do Hamburguer.
+ * Gera o popup de forma dinâmica.
+ * @param {string} mensagem a ser mostrada no popup.
  */
-function toggleMenu(){
-    const aside = document.getElementById("aside");
-    aside.style.display = "block";
-}
+function mostrarPopup(mensagem) {
+    const popup = document.getElementById("popup");
+    const mensagemTexto = document.getElementById("mensagem-popup");
+    const btnVoltar = document.getElementById("popup-btn-voltar");
+    const btnContinuar = document.getElementById("popup-btn-continuar");
 
-/**
- * Fecha o menu do Hamburguer.
- */
-function closeMenu(){
-    const aside = document.getElementById("aside");
-    aside.style.display = "none";
+    popup.style.visibility = "visible";
 
-    //para não dar problema entre o resize da janela e o menu sumir
-    //ajustamos a tela para reexibir o menu correto
-    window.onresize = function(event) {
-        if (event.srcElement.innerWidth > 900){
-            aside.style.display = "flex";
-        }
-    };
+    const customPromise = new Promise((resolve, reject) => {
+        btnVoltar.addEventListener("click", (e) => {
+            e.preventDefault(); 
+            popup.style.visibility = "hidden";
+            reject(false);
+        });
+    
+        btnContinuar.addEventListener("click", (e) => {
+            e.preventDefault(); 
+            popup.style.visibility = "hidden";
+            //precisa retornar true (provavelmente por meio de uma promisse)
+            resolve(true);
+        });
+    })
+
+    mensagemTexto.innerHTML = mensagem;
+    
+    return customPromise
 }
