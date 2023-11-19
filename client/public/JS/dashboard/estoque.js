@@ -8,12 +8,17 @@ fetchEstoque()
 const addEstoqueFormBtn = document.getElementById("add-table-row-estoque");
 const cancelarCriacaoEstoqueBtn = document.getElementById("cancel-btn-estoque");
 addEstoqueFormBtn.addEventListener("click", mostrarFormCriacaoItemEstoque);
-cancelarCriacaoEstoqueBtn.addEventListener("click", mostrarFormCriacaoItemEstoque);
+cancelarCriacaoEstoqueBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const addEstoqueForm = document.getElementById("add-form-estoque");
+    addEstoqueForm.style.display = "none";
+});
 
 const cancelarEdicaoEstoqueBtn = document.getElementById("cancel-btn-edit-estoque");
 cancelarEdicaoEstoqueBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    mostrarFormEdicaoEstoque(null);
+    const addEstoqueForm = document.getElementById("edit-form-estoque");
+    addEstoqueForm.style.display = "none";
 });
 
 const searchBar = document.getElementById("search-bar");
@@ -91,9 +96,14 @@ async function mostrarTabelaEstoque(dadosTabela) {
         // Botão de inativação 
         const btnDelete = document.createElement("button");
         btnDelete.classList.add("delete-btn");
-        btnDelete.addEventListener("click", () => {
-            if(confirmarExclusaoEstoque())
+        btnDelete.addEventListener("click", (event) => {
+            event.preventDefault();
+            confirmarExclusaoEstoque()
+            .then(() => {
                 excluirItemEstoque(estq.codComp);
+            })
+                
+                
         });
         btnDelete.innerHTML = '<i class="fa-solid fa-ban"> </i>';
 
@@ -243,10 +253,10 @@ async function excluirItemEstoque(codComp) {
  * @returns {boolean} - Retorna confirmação do usuário.
  */
 function confirmarExclusaoEstoque() {
-    return confirm(
-        "Você tem certeza que deseja excluir este item do estoque? Esta função é " +
-        "irreversível."
-    );
+    return mostrarPopup("Espere! Ao excluir um item diretamente no estoque, ele não será excluido em entradas Isso pode levar a complicações no dashboard e outras partes do sistema.")
+        .then(result => {
+            return result;
+        });
 }
 
 /**
@@ -254,12 +264,10 @@ function confirmarExclusaoEstoque() {
  * @returns {boolean} - Retorna confirmação do usuário.
  */
 function confirmarCriacaoEstoque() {
-    return confirm(
-        "Espere!\n" +
-        "Ao criar um item diretamente no estoque, ele não será registrado em entradas!\n" +
-        "Apenas adicione um item diretamente aqui caso tenha certeza que não deseja " +
-        "que ele seja primeiro adicionado em entradas."
-    )
+    return mostrarPopup("Espere! Ao criar um item diretamente no estoque, ele não será criado em entradas Isso pode levar a complicações no dashboard e outras partes do sistema.")
+        .then(result => {
+            return result;
+        });
 }
 
 /**
@@ -267,12 +275,10 @@ function confirmarCriacaoEstoque() {
  * @returns {boolean} - Retorna confirmação do usuário.
  */
 function confirmarAtualizacaoEstoque() {
-    return confirm(
-        "Espere!\n" +
-        "Ao editar um item diretamente no estoque, ele não será editado em entradas " +
-        "ou vendas!\n" +
-        "Isso pode levar a complicações no dashboard e outras partes do sistema."
-    )
+    return mostrarPopup("Espere! Ao editar um item diretamente no estoque, ele não será editado em entradas Isso pode levar a complicações no dashboard e outras partes do sistema.")
+        .then(result => {
+            return result;
+        });
 }
 
 /**
@@ -280,44 +286,44 @@ function confirmarAtualizacaoEstoque() {
  * @param {object} estq - Dados do estoque a ser alterado.
  */
 function mostrarFormEdicaoEstoque(estq) {
-    if (!confirmarAtualizacaoEstoque())
-        return
-
-    const editEstoqueForm = document.getElementById("edit-form-estoque");
+    const confirm = confirmarAtualizacaoEstoque();
+    confirm.then(() => {
+        const editEstoqueForm = document.getElementById("edit-form-estoque");
     
-    if (editEstoqueForm.style.display !== "block") {
-        editEstoqueForm.style.display = "block";
-
         const codEstqTextbox = document.getElementById("edit-codigo-estoque-estoque");
         const codCompTextbox = document.getElementById("edit-codigo-componentes-estoque");
         const quantMinTextbox = document.getElementById("edit-quantidade-min-estoque");
         const quantMaxTextbox = document.getElementById("edit-quantidade-max-estoque");
         const quantidadeTextbox = document.getElementById("edit-quantidade-estoque");
 
+        editEstoqueForm.style.display = "block";
+
         codEstqTextbox.value = estq.codEstq;
         codCompTextbox.value = estq.codComp;
         quantMinTextbox.value = estq.min;
         quantMaxTextbox.value = estq.max;
         quantidadeTextbox.value = estq.quantidade;
-    } else {
+    })
+    .catch((err) => {
+        const editEstoqueForm = document.getElementById("edit-form-estoque");
         editEstoqueForm.style.display = "none";
-    }
+    });
 }
 
 /**
  * Mostra forms para cadastro de estoque.
  */
-function mostrarFormCriacaoItemEstoque() {
-    if (!confirmarCriacaoEstoque())
-        return
-
-    const addEstoqueForm = document.getElementById("add-form-estoque");
-    
-    if (addEstoqueForm.style.display !== "block") {
+function mostrarFormCriacaoItemEstoque(event) {
+    event.preventDefault();
+    const confirm = confirmarCriacaoEstoque();
+    confirm.then(() => {
+        const addEstoqueForm = document.getElementById("add-form-estoque");
         addEstoqueForm.style.display = "block";
-    } else {
+    })
+    .catch((err) => {
+        const addEstoqueForm = document.getElementById("add-form-estoque");
         addEstoqueForm.style.display = "none";
-    }
+    });
 }
 
 /**
